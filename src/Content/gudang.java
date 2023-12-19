@@ -404,24 +404,22 @@ public class gudang extends javax.swing.JPanel {
             return;
         }
             String id_barang    = tbl_data.getValueAt(selectedRow,0).toString();
-            String kode_barcode = T_code.getText();
             String deskripsi    = T_deskripsi.getText();
             String harga        = T_harga.getText();
             String stok         = T_stok.getText();
             
                 
-        if (deskripsi.isEmpty() || kode_barcode.isEmpty()  || harga.isEmpty() || stok.isEmpty()){
+        if (deskripsi.isEmpty() || harga.isEmpty() || stok.isEmpty()){
             JOptionPane.showMessageDialog(this, "Semua kolom harus di isi","Peringatan!!", JOptionPane.ERROR_MESSAGE);
             return;
         }
         try {
-            String sql = "UPDATE Barang SET Nama_Barang=?, Harga=?, Stok=?,Kode_Barcode=? WHERE id_barang=?";
-            PreparedStatement st = c.prepareStatement(sql);
-            st.setString(1, kode_barcode);  
-            st.setString(2, deskripsi);
-            st.setString(3, harga);
-            st.setString(4, stok);
-            st.setString(5, id_barang);
+            String sql = "UPDATE Barang SET Nama_Barang=?, Harga=?, Stok=? WHERE id_barang=?";
+            PreparedStatement st = c.prepareStatement(sql);  
+            st.setString(1, deskripsi);
+            st.setString(2, harga);
+            st.setString(3, stok);
+            st.setString(4, id_barang);
             int rowUpdate = st.executeUpdate();
             if(rowUpdate > 0){
                 JOptionPane.showMessageDialog(this, "Data berhasil di Perbarui ");
@@ -435,7 +433,7 @@ public class gudang extends javax.swing.JPanel {
     }//GEN-LAST:event_btn_updateActionPerformed
     
     private void btn_batalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_batalActionPerformed
-    
+        ResetForm();
     }//GEN-LAST:event_btn_batalActionPerformed
 
     private void T_IDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_T_IDActionPerformed
@@ -564,7 +562,7 @@ public class gudang extends javax.swing.JPanel {
     // End of variables declaration//GEN-END:variables
 
     private void ResetForm() {
-        T_ID.setText("");
+    T_ID.setText("");
     T_code.setText("");
     T_deskripsi.setText("");
     T_harga.setText("");
